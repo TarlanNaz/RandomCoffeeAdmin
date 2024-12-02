@@ -6,9 +6,8 @@ import { supabase } from '../../shared/supabaseClient.tsx';
 import React from 'react';
 import TopicsList from './components/TopicsList.tsx';
 
-const navigate = useNavigate();
-
 function TopicsPage() {
+  const navigate = useNavigate();
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -36,20 +35,20 @@ function TopicsPage() {
     <Layout style={{ height: '100vh' }}>
       <Sider style={{ background: colorBgContainer }}>
         <Menu
-          //onClick={(e) => console.log(e.key)}
+          onClick={(e) => navigate(e.key)}
           mode="inline"
           defaultSelectedKeys={['users']}
           items={[
             {
-              key: 'users',
+              key: '/users',
               label: 'user',
             },
             {
-              key: 'topics',
+              key: '/topics',
               label: 'topic',
             },
             {
-              key: 'places',
+              key: '/places',
               label: 'place',
             },
           ]}

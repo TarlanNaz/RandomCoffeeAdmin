@@ -1,89 +1,57 @@
 import React from 'react';
-import { Button, Layout, Menu, theme } from 'antd';
-//import { useNavigate } from 'react-router-dom';
+import { Space, Table,Button } from 'antd';
+import type { TableProps } from 'antd';
+//import { supabase } from '../../shared/supabaseClient.tsx';
 
-const { Header, Content, Footer, Sider } = Layout;
-    
+interface DataType {
+  key: string;
+  name: string;
+  age: number;
+}
 
-const TestPage: React.FC = () => {
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
+const columns: TableProps<DataType>['columns'] = [
+  {
+    title: 'Имя',
+    dataIndex: 'first_name',
+    key: '/name',
+  },
+  {
+    title: 'Фамилия',
+    dataIndex: 'last_name',
+    key: '/places',
+  },
+  {
+    title: 'Action',
+    key: 'action',
+    render: (_, record) => (
+      <Space size="middle">
+        <Button>Invite {record.name}</Button>
+        <Button>Delete</Button>
+      </Space>
+    ),
+  },
+];
 
-//const navigate = useNavigate();
+const data: DataType[] = [
+  {
+    key: '1',
+    name: 'John Brown',
+    age: 32,
+  },
+  {
+    key: '2',
+    name: 'Jim Green',
+    age: 42,
+  },
+  {
+    key: '3',
+    name: 'Joe Black',
+    age: 32,
+  },
+];
 
 
 
-
-  
-  return (
-    <Layout>
-      <Sider
-        breakpoint="lg"
-        collapsedWidth="0"
-        onBreakpoint={(broken) => {
-          console.log(broken);
-        }}
-        onCollapse={(collapsed, type) => {
-          
-          console.log(collapsed, type);
-        }}
-        
-      >
-        <div className="demo-logo-vertical" />
-        <Menu
-         //onClick={(e) => console.log(e)}
-         theme="dark"
-          mode="inline"
-          defaultSelectedKeys={['/users']}
-          items={[
-            {
-              key: '/users',
-              label: 'users',
-              
-            },
-            {
-              key: '/topics',
-              label: 'topic',
-            },
-            {
-              key: '/places',
-              label: 'place',
-              
-            },
-          ]}
-        /> 
-      </Sider>
-      <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }} >
-           <div 
-           style={{
-            display: 'flex',
-            justifyContent: 'end',
-            alignItems: 'center',
-            width: '100%',
-            height: '100%',
-            padding: '15px',
-            columnGap: '15px',
-          }}>
-              </div>
-              </Header>
-        <Content style={{ margin: '24px 16px 0' , height : '100vh'}}>
-          <div
-            style={{
-              padding: 24,
-              minHeight: 360,
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-            }}
-          >
-            
-             m jnbbbybub
-          </div>
-        </Content>
-      </Layout>
-    </Layout>
-  );
-};
+const TestPage: React.FC = () => <Table<DataType> columns={columns} dataSource={data} />;
 
 export default TestPage;

@@ -16,7 +16,7 @@ function App() {
         <Route path="*" element={<AdminPage />} />
         <Route path="topics" element={<TopicsPage />} />
         <Route path="places" element={<PlacesPage />} />
-        <Route path="test" element={< TestPage />} />
+        {/*<Route path="test" element={< TestPage />} */}
 
       </Routes>
     </BrowserRouter>

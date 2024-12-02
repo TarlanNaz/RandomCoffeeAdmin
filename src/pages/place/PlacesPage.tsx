@@ -5,9 +5,9 @@ import { useEffect } from 'react';
 import { supabase } from '../../shared/supabaseClient.tsx';
 import PlacesList from './components/PlacesList.tsx';
 import React from 'react';
-const navigate = useNavigate();
-function PlacesPage() {
 
+function PlacesPage() {
+  const navigate = useNavigate();
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -34,20 +34,20 @@ function PlacesPage() {
     <Layout style={{ height: '100vh' }}>
       <Sider style={{ background: colorBgContainer }}>
         <Menu
-          onClick={(e) => console.log(e.key)}
+          onClick={(e) => navigate(e.key)}
           mode="inline"
           defaultSelectedKeys={['users']}
           items={[
             {
-              key: 'users',
+              key: '/users',
               label: 'user',
             },
             {
-              key: 'topics',
+              key: '/topics',
               label: 'topic',
             },
             {
-              key: 'places',
+              key: '/places',
               label: 'place',
             },
           ]}

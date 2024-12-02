@@ -7,10 +7,10 @@ import { supabase } from '../../shared/supabaseClient.tsx';
 import UsersList from './components/UsersList.tsx';
 //import PlacesList from './components/UsersList.tsx';
 import React from 'react';
-const navigate = useNavigate();
+
 
 function AdminPage() {
-  
+  const navigate = useNavigate();
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -37,20 +37,20 @@ function AdminPage() {
     <Layout style={{ height: '100vh' }}>
       <Sider style={{ background: colorBgContainer }}>
         <Menu
-          onClick={(e) => console.log(e.key)}
+          onClick={(e) => navigate(e.key)}
           mode="inline"
           defaultSelectedKeys={['users']}
           items={[
             {
-              key: 'users',
+              key: '/users',
               label: 'user',
             },
             {
-              key: 'topics',
+              key: '/topics',
               label: 'topic',
             },
             {
-              key: 'places',
+              key: '/places',
               label: 'place',
             },
           ]}
