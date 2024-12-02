@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Layout, Menu, theme } from 'antd';
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 
 const { Header, Content, Footer, Sider } = Layout;
     
@@ -10,10 +10,9 @@ const TestPage: React.FC = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-const navigate = useNavigate();
+//const navigate = useNavigate();
 
 
-  
 
 
   
