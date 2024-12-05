@@ -1,8 +1,7 @@
-import { Button, Table, Popover } from 'antd';
+import { Button, Table, Popover, Space } from 'antd';
 import { supabase } from '../../../shared/supabaseClient.tsx';
 import { useEffect, useState } from 'react';
 import React from "react";
-import { NONAME } from "dns";
 
 
 function UsersList() {
@@ -20,13 +19,16 @@ function UsersList() {
   }, []);
 
  
-
+  async function deleteUser() {
+    
+    
+  }
   async function addUser() {
     try {
       const { data, error } = await supabase
         .from('users')
         .insert([{
-          first_name:'Тарлн', body:'Назров', author_id: '17'
+          first_name:'Тарлн', last_name:'Назров', age :12 
         }])
    
       if (error) throw error
@@ -47,32 +49,49 @@ function UsersList() {
     </div>
     );
 
+    interface DataType {
+      title: string;
+      dataIndex : string;
+      key: string;
+    }
 
-
-  const columns = [
+  const columns: Array<DataType> = [
     {
       title: 'Имя',
       dataIndex: 'first_name',
+      key : 'first_name',
     },
     {
-        title: 'Фамилия',
-        dataIndex: 'last_name',
+      title: 'Фамилия',
+      dataIndex: 'last_name',
+      key : 'last_name',
 
     },
     {
       title: 'Возраст',
       dataIndex: 'age',
+      key : 'age',
 
     },
     {
       title: 'Время создания',
       dataIndex: 'created_at',
+      key : 'created_at',
 
     },
     {
       title: 'Время последнего изменения',
       dataIndex: 'updated_at',
+      key : 'updated_at',
 
+    },
+    {
+      title: 'Дейсвия',
+      render:() => (
+      <Space size="middle">
+        <Button>Редактировать</Button>
+        <Button>Удалить</Button>
+      </Space>),
     },
 
       
@@ -85,7 +104,6 @@ function UsersList() {
       </Button>
       <Table pagination={false} dataSource={data} columns={columns} >
         <Popover content={content} title="Title">
-          <Button type="primary">что можно сделать</Button>
         </Popover>
       </Table>
     </>

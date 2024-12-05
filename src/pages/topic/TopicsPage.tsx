@@ -6,7 +6,7 @@ import { supabase } from '../../shared/supabaseClient.tsx';
 import React from 'react';
 import TopicsList from './components/TopicsList.tsx';
 
-function TopicsPage() {
+const TopicsPage = () => {
   const navigate = useNavigate();
 
   const {

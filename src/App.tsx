@@ -5,6 +5,7 @@ import AdminPage from './pages/admin/AdminPage';
 import TopicsPage from './pages/topic/TopicsPage';
 import PlacesPage from './pages/place/PlacesPage';
 import TestPage  from './pages/test/TestPage';
+//import SingUpPage  from './pages/signup/SignUpPage';
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
         <Route path="*" element={<AdminPage />} />
         <Route path="topics" element={<TopicsPage />} />
         <Route path="places" element={<PlacesPage />} />
-        {/*<Route path="test" element={< TestPage />} */}
+        <Route path="test" element={< TestPage />} />
+        {/*<Route path="signup" element={< SingUpPage />} />*/}
 
       </Routes>
     </BrowserRouter>

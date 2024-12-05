@@ -40,7 +40,7 @@ function LoginForm() {
 
   return (
     <Form
-      name="login"
+      name="SignUp"
       style={{
         minWidth: 500,
         background: 'white',
@@ -76,9 +76,6 @@ function LoginForm() {
         >
           <Button style={{ width: '50%' }} type="primary" htmlType="submit">
             Войти
-          </Button>
-          <Button style={{ width: '50%' }} type="primary">
-            Сброс пароля
           </Button>
         </div>
       </Form.Item>
