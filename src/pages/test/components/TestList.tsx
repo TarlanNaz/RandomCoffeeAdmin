@@ -1,77 +1,88 @@
 import React from 'react';
-import { Space, Table, Tag } from 'antd';
+import { Space, Table, Button } from 'antd';
 import type { TableProps } from 'antd';
+import { useEffect, useState } from 'react';
+import { supabase } from '../../../shared/supabaseClient.tsx';
 
+
+function TestList(){
+const [users, setUsers] = useState(new Array<Object>());
+
+useEffect(() => {
+  const fetchData = async () => {
+    const { data } = await supabase.from('users').select();
+    console.log(data);
+    if (data) {
+      setUsers(data);
+    }
+  };
+  fetchData();
+}, []); 
+
+async function AddUser(){
+  return supabase
+    .from('users')
+    .insert({ first_name: 'Что-нибудь', last_name : 'Кто-нибудь'})
+    .then(({ error }) => {
+      console.log(error)
+      if (!error) {
+        return supabase.from('users').select()
+      }
+    })
+    .then(({ data }) => {
+      console.log(data);
+      if (data) {
+        setUsers(data);
+      }
+    });
+}
 interface DataType {
-  key: number;
+  key: React.Key;
   first_name: string;
   last_name : string;
-  age: number;
-  address: string;
 }
 
 const columns: TableProps<DataType>['columns'] = [
   {
+    title : 'ID',
+    dataIndex : 'id',
+  },
+  {
     title: 'name',
-    dataIndex: 'first_anme',
-    key: 'name',
+    dataIndex: 'first_name',
   },
   {
     title: 'last name',
     dataIndex: 'last_name',
-    key: 'last',
   },
   {
     title: 'Age',
     dataIndex: 'age',
-    key: 'age',
   },
   {
     title: 'Address',
     dataIndex: 'address',
-    key: 'address',
   },
   {
     title: 'Action',
     key: 'action',
     render: (_, record) => (
       <Space size="middle">
-        <a>Invite {record.first_name}</a>
-        <a>Delete</a>
+        <a>Редактировать</a>
+        <a>Удалить {record.first_name}</a>
       </Space>
     ),
   },
 ];
 
+return(
+  <>
+  <Button onClick={() =>AddUser()} style={{ marginBottom: '15px' }}>
+  Добавить пользователя
+  </Button> 
+  <Table<DataType> columns={columns} dataSource={users} />
+  </>
+  )
 
-
-
-
-
-const data: DataType[] = [
-  {
-    key: 1,
-    first_name: 'John',
-    last_name : '12312312',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-  },
-  {
-    key: 2,
-    first_name: 'Jim Green',
-    last_name: '123123',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-  },
-  {
-    key: 3,
-    first_name: 'Joe Black',
-    last_name : '1213',
-    age: 32,
-    address: 'Sydney No. 1 Lake Park',
-  },
-];
-
-const App: React.FC = () => <Table<DataType> columns={columns} dataSource={data} />;
-
-export default App;
+}
+export default TestList;
