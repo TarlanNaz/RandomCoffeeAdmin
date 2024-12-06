@@ -23,23 +23,23 @@ function UsersList() {
     
     
   }
-  async function addUser() {
-    try {
-      const { data, error } = await supabase
-        .from('users')
-        .insert([{
-          first_name:'Тарлн', last_name:'Назров', age :12 
-        }])
-   
-      if (error) throw error
-      return data
-    } catch (e) {
-      throw e
-    } finally{
-      window.location.reload();
-    }
-    
-   }
+  function addUser() {
+    return supabase
+      .from('users')
+      .insert({ first_name: 'Что-нибудь', last_name : 'Кто-нибудь'})
+      .then(({ error }) => {
+        console.log(error)
+        if (!error) {
+          return supabase.from('users').select()
+        }
+      })
+      .then(({ data }) => {
+        console.log(data);
+        if (data) {
+          setData(data);
+        }
+      });
+}
 
     const content = (
     <div>
@@ -50,46 +50,43 @@ function UsersList() {
     );
 
     interface DataType {
+      key: React.Key;
       title: string;
       dataIndex : string;
-      key: string;
+      
+
     }
 
   const columns: Array<DataType> = [
     {
       title: 'Имя',
       dataIndex: 'first_name',
-      key : 'first_name',
+      key : 'first_name'
+ 
     },
     {
       title: 'Фамилия',
       dataIndex: 'last_name',
-      key : 'last_name',
+      key : 'last_name'
 
-    },
-    {
-      title: 'Возраст',
-      dataIndex: 'age',
-      key : 'age',
 
     },
     {
       title: 'Время создания',
       dataIndex: 'created_at',
-      key : 'created_at',
+      key : 'created_at'
 
     },
     {
       title: 'Время последнего изменения',
       dataIndex: 'updated_at',
-      key : 'updated_at',
-
+      key : 'updated_at'
     },
     {
       title: 'Дейсвия',
       render:() => (
       <Space size="middle">
-        <Button>Редактировать</Button>
+        <Button onClick={(e) => console.log(e.key)}>Редактировать</Button>
         <Button>Удалить</Button>
       </Space>),
     },
@@ -99,7 +96,7 @@ function UsersList() {
 
   return (
     <>
-      <Button onClick={addUser} style={{ marginBottom: '15px' }}>
+      <Button onClick={() =>addUser()} style={{ marginBottom: '15px' }}>
         Добавить пользователя
       </Button>
       <Table pagination={false} dataSource={data} columns={columns} >

@@ -1,177 +1,77 @@
 import React from 'react';
-import { Space, Table, Button, Modal, Input  } from 'antd';
+import { Space, Table, Tag } from 'antd';
 import type { TableProps } from 'antd';
-import { supabase } from '../../../shared/supabaseClient.tsx';
-import { useEffect, useState } from 'react';
 
-const Label: React.FC = () => (
-  <>
-    <Input size="large" placeholder="Введите Имя" />
-    <br />
-    <br />
-    <Input size="large" placeholder="Введите Фамилию" />
-    <br />
-    <br />
-    <Input size="large" placeholder="Введите возраст" />
-  </>
-);
-
-async function addUser() {
-  try {
-    const { data, error } = await supabase
-      .from('users')
-      .insert([{
-        first_name:'Тарлн', body:'Назров', age: '17'
-      }])
- 
-    if (error) throw error
-    return data
-  } catch (e) {
-    throw e
-  } finally{
-    window.location.reload();
-  }
-  
- }
-
-const ModalUpdate = () =>{
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-    addUser()
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-
-
-  return (
-    <>
-      <Button type="primary" onClick={showModal}>
-        Обновить
-      </Button>
-      <Modal title="Обновить" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-        <Label/>
-      </Modal>
-    </>
-  );
-};
-
-const ModalDelete = () => {
-  const [open, setOpen] = useState(false);
-  const [confirmLoading, setConfirmLoading] = useState(false);
-
-  const showModal = () => {
-    setOpen(true);
-  };
-
-  const handleOk = () => {
-    setConfirmLoading(true);
-    setTimeout(() => {
-      setOpen(false);
-      setConfirmLoading(false);
-    }, 1000);
-  };
-
-  const handleCancel = () => {
-    setOpen(false);
-  };
-
-  return (
-    <>
-      <Button type="primary" onClick={showModal}>
-        Удалить
-      </Button>
-      <Modal
-        title="Вы уверены что хотите удалить?"
-        open={open}
-        onOk={handleOk}
-        confirmLoading={confirmLoading}
-        onCancel={handleCancel}
-      >
-      </Modal>
-    </>
-  );
-};
-
-
-
-
-
-function TestList(){
-
-    
-
-
-    interface DataType {
-        key: string;
-        name: string;
-        age: number;
-        address: string;
-      }
-    const [data , setData] = useState(new Array<DataType>());
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await supabase.from('users').select();
-      console.log(data);
-      if (data) {
-        setData(data);
-      }
-    };
-    fetchData();
-  }, []); 
-
-
-      
-      const columns: TableProps<DataType>['columns'] = [
-        {
-          title: 'Name',
-          dataIndex: 'first_name',
-          key: 'fName',
-        },
-        {
-          title: 'Фамилия',
-          dataIndex: 'last_name',
-          key: 'lName',
-        },
-        {
-          title: 'Age',
-          dataIndex: 'age',
-          key: 'age',
-        },
-        {
-          title: 'Address',
-          dataIndex: 'address',
-          key: 'address',
-          render: (text) => <a>{text}</a>,
-        },
-      
-        {
-          title: 'Action',
-          key: 'action',
-          render: () => (
-            <Space size="middle">
-              <ModalUpdate />
-              <ModalDelete />
-            </Space>
-          ),
-        },
-      ];
-      
-
-      return(
-        <Table<DataType> columns={columns} dataSource={data} />
-      )
-      
-
+interface DataType {
+  key: number;
+  first_name: string;
+  last_name : string;
+  age: number;
+  address: string;
 }
 
+const columns: TableProps<DataType>['columns'] = [
+  {
+    title: 'name',
+    dataIndex: 'first_anme',
+    key: 'name',
+  },
+  {
+    title: 'last name',
+    dataIndex: 'last_name',
+    key: 'last',
+  },
+  {
+    title: 'Age',
+    dataIndex: 'age',
+    key: 'age',
+  },
+  {
+    title: 'Address',
+    dataIndex: 'address',
+    key: 'address',
+  },
+  {
+    title: 'Action',
+    key: 'action',
+    render: (_, record) => (
+      <Space size="middle">
+        <a>Invite {record.first_name}</a>
+        <a>Delete</a>
+      </Space>
+    ),
+  },
+];
 
-export default TestList;
+
+
+
+
+
+const data: DataType[] = [
+  {
+    key: 1,
+    first_name: 'John',
+    last_name : '12312312',
+    age: 32,
+    address: 'New York No. 1 Lake Park',
+  },
+  {
+    key: 2,
+    first_name: 'Jim Green',
+    last_name: '123123',
+    age: 42,
+    address: 'London No. 1 Lake Park',
+  },
+  {
+    key: 3,
+    first_name: 'Joe Black',
+    last_name : '1213',
+    age: 32,
+    address: 'Sydney No. 1 Lake Park',
+  },
+];
+
+const App: React.FC = () => <Table<DataType> columns={columns} dataSource={data} />;
+
+export default App;

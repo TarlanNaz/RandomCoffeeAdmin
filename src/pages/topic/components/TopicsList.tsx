@@ -16,11 +16,24 @@ function TopicsList() {
     fetchData();
   }, []);
 
-  async function addTopic() {
-    await supabase.from('topics').insert({ title: 'Рисование' });
-    // обновление страницы
-    window.location.reload();
-  }
+  function addTopic() {
+    return supabase
+      .from("topics")
+      .insert({ title: "Что-нет" })
+      .then(({ error }) => {
+        console.log(error)
+        if (!error) {
+          return supabase.from('topics').select()
+        }
+      })
+      .then(({ data }) => {
+        console.log(data);
+        if (data) {
+          setData(data);
+        }
+      });
+}
+
 
   const columns = [
     {
@@ -39,7 +52,7 @@ function TopicsList() {
 
   return (
     <>
-      <Button onClick={addTopic} style={{ marginBottom: '15px' }}>
+      <Button onClick={() => addTopic()} style={{ marginBottom: '15px' }}>
         Добавить интерес
       </Button>
       <Table pagination={false} dataSource={data} columns={columns} />
