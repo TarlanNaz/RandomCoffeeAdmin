@@ -18,11 +18,6 @@ function UsersList() {
     fetchData();
   }, []);
 
- 
-  async function deleteUser() {
-    
-    
-  }
   function addUser() {
     return supabase
       .from('users')
