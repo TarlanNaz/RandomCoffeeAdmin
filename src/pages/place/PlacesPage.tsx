@@ -1,10 +1,11 @@
+import React from 'react';
 import { Layout, Menu, theme, Button } from 'antd';
-const { Sider, Content, Header } = Layout;
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { supabase } from '../../shared/supabaseClient.tsx';
 import PlacesList from './components/PlacesList.tsx';
-import React, { useState } from 'react';
+
+const { Sider, Content, Header } = Layout;
 
 function PlacesPage() {
   const navigate = useNavigate();
