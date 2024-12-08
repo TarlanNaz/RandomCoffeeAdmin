@@ -6,7 +6,7 @@ import { supabase } from '../../shared/supabaseClient.tsx';
 //import TopicsList from './components/TopicsList';
 import UsersList from './components/UsersList.tsx';
 //import PlacesList from './components/UsersList.tsx';
-import React from 'react';
+
 
 
 function AdminPage() {
