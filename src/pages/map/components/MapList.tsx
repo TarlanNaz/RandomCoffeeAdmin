@@ -1,5 +1,4 @@
 import { YMaps, Map,Placemark } from '@pbe/react-yandex-maps';
-import React from "react";
 
 const MapList = () => (
   <YMaps>
