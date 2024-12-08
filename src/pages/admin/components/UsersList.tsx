@@ -2,10 +2,16 @@ import { Button, Table, Popover, Space } from 'antd';
 import { supabase } from '../../../shared/supabaseClient.tsx';
 import { useEffect, useState } from 'react';
 
-
+interface User {
+  id: number;
+  first_name: string;
+  last_name: string;
+  created_at: string;
+  updated_at: string;
+}
 
 function UsersList() {
-  const [data, setData] = useState(new Array<Object>());
+  const [data, setData] = useState<User[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,15 +50,14 @@ function UsersList() {
     </div>
     );
 
-    interface DataType {
-      key: React.Key;
+    interface ColumnType {
       title: string;
-      dataIndex : string;
-      
-
+      dataIndex?: string;
+      key: string;
+      render?: (text: string, record: User) => JSX.Element;
     }
 
-  const columns: Array<DataType> = [
+  const columns: ColumnType[] = [
     {
       title: 'Имя',
       dataIndex: 'first_name',
@@ -78,10 +83,10 @@ function UsersList() {
       key : 'updated_at'
     },
     {
-      title: 'Дейсвия',
-      render:() => (
+      title: 'Действия',
+      render: (_, record) => (
       <Space size="middle">
-        <Button onClick={(e) => console.log(e.key)}>Редактировать</Button>
+        <Button onClick={() => console.log(record.id)}>Редактировать</Button>
         <Button>Удалить</Button>
       </Space>),
     },
