@@ -1,5 +1,5 @@
-import { Button, Layout, Menu, theme } from 'antd';
-const { Header, Sider, Content } = Layout;
+import { Layout, Menu, theme } from 'antd';
+const { Sider, Content, Header } = Layout;
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { supabase } from '../../shared/supabaseClient.tsx';
