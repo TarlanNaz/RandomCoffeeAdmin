@@ -2,42 +2,47 @@ import { Button, Table } from 'antd';
 import { supabase } from '../../../shared/supabaseClient';
 import { useEffect, useState } from 'react';
 
+interface Place {
+  id: number;
+  title: string;
+  location: string;
+}
+
 function PlacesList() {
-  const [place, setPlace] = useState(new Array<Object>());
+  const [places, setPlaces] = useState<Place[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await supabase.from('places').select();
-      console.log(data);
-      if (data) {
-        setPlace(data);
+      try {
+        const { data, error } = await supabase.from('places').select();
+        if (error) throw error;
+        if (data) {
+          setPlaces(data);
+        }
+      } catch (error) {
+        console.error('Error fetching places:', error);
       }
     };
     fetchData();
   }, []);
 
+  async function addPlace() {
+    try {
+      const { error } = await supabase
+        .from('places')
+        .insert({title: 'Кто-нибудь', location: 'Point(1 4)'});
+      
+      if (error) throw error;
 
-
-  function addPlace() {
-    return supabase
-      .from('places')
-      .insert({title : 'Кто-нибудь', location: 'Point(1 4)', })
-      .then(({ error }) => {
-        console.log(error)
-        if (!error) {
-          return supabase.from('places').select()
-        }
-        throw new Error(error.details)
-      })
-      .then(({ data }) => {
-        console.log(data);
-        if (data) {
-          setPlace(data);
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-      });
+      const { data, error: fetchError } = await supabase.from('places').select();
+      if (fetchError) throw fetchError;
+      
+      if (data) {
+        setPlaces(data);
+      }
+    } catch (error) {
+      console.error('Error adding place:', error);
+    }
   }
 
   const columns = [
@@ -64,7 +69,7 @@ function PlacesList() {
       <Button onClick={() => addPlace()} style={{ marginBottom: '15px' }}>
         Добавить место
       </Button>
-      <Table pagination={false} dataSource={place} columns={columns} />
+      <Table pagination={false} dataSource={places} columns={columns} />
     </>
   );
 }
