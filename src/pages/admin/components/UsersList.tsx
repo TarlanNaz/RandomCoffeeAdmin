@@ -15,10 +15,14 @@ function UsersList() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await supabase.from('users').select();
-      console.log(data);
-      if (data) {
-        setData(data);
+      try {
+        const { data, error } = await supabase.from('users').select();
+        if (error) throw error;
+        if (data) {
+          setData(data);
+        }
+      } catch (error) {
+        console.error('Error fetching users:', error);
       }
     };
     fetchData();
@@ -27,79 +31,74 @@ function UsersList() {
   function addUser() {
     return supabase
       .from('users')
-      .insert({ first_name: 'Что-нибудь', last_name : 'Кто-нибудь'})
+      .insert({ first_name: 'Что-нибудь', last_name: 'Кто-нибудь' })
       .then(({ error }) => {
-        console.log(error)
-        if (!error) {
-          return supabase.from('users').select()
-        }
+        if (error) throw error;
+        return supabase.from('users').select();
       })
-      .then(({ data }) => {
-        console.log(data);
+      .then(({ data, error }) => {
+        if (error) throw error;
         if (data) {
           setData(data);
         }
+      })
+      .catch((error) => {
+        console.error('Error adding user:', error);
       });
-}
+  }
 
-    const content = (
+  const content = (
     <div>
-          <Button type="primary" style={{margin: 12} }>удалить</Button>
-          
-          <Button type="primary">редактировать</Button>
+      <Button type="primary" style={{ margin: 12 }}>удалить</Button>
+      <Button type="primary">редактировать</Button>
     </div>
-    );
+  );
 
-    interface ColumnType {
-      title: string;
-      dataIndex?: string;
-      key: string;
-      render?: (text: string, record: User) => JSX.Element;
-    }
+  interface ColumnType {
+    title: string;
+    dataIndex?: string;
+    key?: string;
+    render?: (text: any, record: User) => JSX.Element;
+  }
 
   const columns: ColumnType[] = [
     {
       title: 'Имя',
       dataIndex: 'first_name',
-      key : 'first_name'
- 
+      key: 'first_name'
     },
     {
       title: 'Фамилия',
       dataIndex: 'last_name',
-      key : 'last_name'
-
-
+      key: 'last_name'
     },
     {
       title: 'Время создания',
       dataIndex: 'created_at',
-      key : 'created_at'
-
+      key: 'created_at'
     },
     {
       title: 'Время последнего изменения',
       dataIndex: 'updated_at',
-      key : 'updated_at'
+      key: 'updated_at'
     },
     {
       title: 'Действия',
       render: (_, record) => (
-      <Space size="middle">
-        <Button onClick={() => console.log(record.id)}>Редактировать</Button>
-        <Button>Удалить</Button>
-      </Space>),
+        <Space size="middle">
+          <Button onClick={() => console.log(record.id)}>Редактировать</Button>
+          <Button>Удалить</Button>
+        </Space>
+      ),
     },
-
-      
   ];
 
   return (
     <>
-      <Button onClick={() =>addUser()} style={{ marginBottom: '15px' }}>
+      <Button onClick={() => addUser()} style={{ marginBottom: '15px' }}>
         Добавить пользователя
       </Button>
-      <Table pagination={false} dataSource={data} columns={columns} >
+      <Table pagination={false} dataSource={data} columns={columns}>
         <Popover content={content} title="Title">
         </Popover>
       </Table>
