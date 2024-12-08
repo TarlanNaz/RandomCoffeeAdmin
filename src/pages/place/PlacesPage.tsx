@@ -7,7 +7,7 @@ import PlacesList from './components/PlacesList.tsx';
 
 const { Sider, Content, Header } = Layout;
 
-function PlacesPage() {
+const PlacesPage: React.FC = () => {
   const navigate = useNavigate();
   const {
     token: { colorBgContainer, borderRadiusLG },
