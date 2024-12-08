@@ -28,23 +28,23 @@ function UsersList() {
     fetchData();
   }, []);
 
-  function addUser() {
-    return supabase
-      .from('users')
-      .insert({ first_name: 'Что-нибудь', last_name: 'Кто-нибудь' })
-      .then(({ error }) => {
-        if (error) throw error;
-        return supabase.from('users').select();
-      })
-      .then(({ data, error }) => {
-        if (error) throw error;
-        if (data) {
-          setData(data);
-        }
-      })
-      .catch((error) => {
-        console.error('Error adding user:', error);
-      });
+  async function addUser() {
+    try {
+      const { error: insertError } = await supabase
+        .from('users')
+        .insert({ first_name: 'Что-нибудь', last_name: 'Кто-нибудь' });
+
+      if (insertError) throw insertError;
+
+      const { data, error: selectError } = await supabase.from('users').select();
+      if (selectError) throw selectError;
+      
+      if (data) {
+        setData(data);
+      }
+    } catch (error: any) {
+      console.error('Error adding user:', error);
+    }
   }
 
   const content = (
