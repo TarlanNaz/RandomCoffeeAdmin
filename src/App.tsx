@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, HashRouter } from 'react-router-dom';
 import LoginPage from './pages/login/LoginPage';
 import AdminPage from './pages/admin/AdminPage';
 import TopicsPage from './pages/topic/TopicsPage';
@@ -10,7 +10,7 @@ import MapPage from './pages/map/MapPage';
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       {/* определяем маршруты и сопоставляем их с компонентами (страницами) */}
       <Routes>
         <Route path="login" element={<LoginPage />} />
@@ -22,7 +22,7 @@ function App() {
         <Route path="*" element={<AdminPage />} />
         <Route path="map" element={<MapPage />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
