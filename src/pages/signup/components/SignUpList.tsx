@@ -1,89 +1,162 @@
-import { Button, Form, Input } from 'antd';
-import type { FormProps } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import { supabase } from '../../../shared/supabaseClient';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import  React  from 'react';
-
-
-const SignUpList = ({ text }: { text: string }) => {
-  const [inputValue, setInputValue] = useState('');
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue((e.target as HTMLInputElement).value);
-  }
-
-  return (
-    <div>   
-      <Input placeholder={text} value={inputValue} onChange={handleChange} />
-      <button onClick={()=>{console.log(inputValue);
-      }}></button>
-    </div>
-  )
-}
-
-
+import React from 'react';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 type FieldType = {
-    email: string;
-    password: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
+
+const SignUpList: React.FC = () => {
+  const navigate = useNavigate();
+  const [form] = Form.useForm();
+  const [loading, setLoading] = React.useState(false);
+
+  const onFinish = async (values: FieldType) => {
+    if (values.password !== values.confirmPassword) {
+      message.error('Пароли не совпадают');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email: values.email,
+        password: values.password,
+      });
+
+      if (error) throw error;
+
+      if (data) {
+        message.success('Регистрация успешна! Проверьте вашу почту для подтверждения.');
+        navigate('/login');
+      }
+    } catch (error) {
+      message.error(error.message || 'Ошибка при регистрации');
+    } finally {
+      setLoading(false);
+    }
   };
-  
-  const SignUpForm = () => {
-    const navigate = useNavigate();
-  
-    const[formData,setFormData] = useState({
-    name:'',email:'', password:''
-    })
-  
-    return (
-      <Form
-        name="singup"
+
+  return (
+    <div style={{ 
+      display: 'flex', 
+      justifyContent: 'center', 
+      alignItems: 'center', 
+      minHeight: '100vh',
+      width: '100vw',
+      background: 'linear-gradient(135deg, #371005 0%, #371005 100%)'
+    }}>
+      <Form<FieldType>
+        form={form}
+        name="signup"
         style={{
-          minWidth: 500,
+          width: '100%',
+          maxWidth: '400px',
           background: 'white',
-          padding: '20px',
-          borderRadius: '16px',
+          padding: '32px',
+          borderRadius: '12px',
+          boxShadow: '0 8px 24px rgba(0,0,0,0.1)',
+          margin: '20px'
         }}
-        initialValues={{ remember: true }}
-        onChange ={handleChange}
+        onFinish={onFinish}
+        layout="vertical"
+        size="large"
       >
-        <Form.Item<FieldType>
-          label="Электронная почта"
+        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+          <h1 style={{ 
+            fontSize: '24px', 
+            margin: 0,
+            color: '#1a1a1a',
+            fontWeight: 600 
+          }}>
+            Регистрация
+          </h1>
+        </div>
+
+        <Form.Item
           name="email"
-          rules={[{ required: true, message: 'Введите Email!' }]}
-          <SignUpList text = 'email'/>
+          rules={[
+            { required: true, message: 'Пожалуйста, введите email' },
+            { type: 'email', message: 'Пожалуйста, введите корректный email' }
+          ]}
         >
-          <Input />
+          <Input 
+            prefix={<UserOutlined style={{ color: '#bfbfbf' }} />}
+            placeholder="Email"
+            size="large"
+          />
         </Form.Item>
-  
-        <Form.Item<FieldType>
-          label="Пароль"
+
+        <Form.Item
           name="password"
-          rules={[{ required: true, message: 'Введите пароль!' }]}
+          rules={[
+            { required: true, message: 'Пожалуйста, введите пароль' },
+            { min: 6, message: 'Пароль должен быть не менее 6 символов' }
+          ]}
         >
-          <Input.Password />
+          <Input.Password 
+            prefix={<LockOutlined style={{ color: '#bfbfbf' }} />}
+            placeholder="Пароль"
+            size="large"
+          />
         </Form.Item>
-  
-        <Form.Item>
-          <div
+
+        <Form.Item
+          name="confirmPassword"
+          rules={[
+            { required: true, message: 'Пожалуйста, подтвердите пароль' },
+            ({ getFieldValue }) => ({
+              validator(_, value) {
+                if (!value || getFieldValue('password') === value) {
+                  return Promise.resolve();
+                }
+                return Promise.reject(new Error('Пароли не совпадают'));
+              },
+            }),
+          ]}
+        >
+          <Input.Password 
+            prefix={<LockOutlined style={{ color: '#bfbfbf' }} />}
+            placeholder="Подтвердите пароль"
+            size="large"
+          />
+        </Form.Item>
+
+        <Form.Item style={{ marginBottom: '12px' }}>
+          <Button 
+            type="primary" 
+            htmlType="submit" 
+            loading={loading}
+            block 
+            size="large"
             style={{
-              display: 'flex',
-              justifyContent: 'center',
-              columnGap: '5px',
+              height: '46px',
+              fontWeight: 500,
+              fontSize: '16px'
             }}
           >
-            <Button style={{ width: '50%' }} type="primary" htmlType="submit">
-              Уже есть аккаунт?
-            </Button>
-            <Button style={{ width: '50%' }} onClick={}>
-              Зарегистрироваться
-            </Button>
-          </div>
+            Зарегистрироваться
+          </Button>
         </Form.Item>
+        <Button 
+          block 
+          size="large"
+          onClick={() => navigate('/login')}
+          style={{
+            height: '46px',
+            fontWeight: 500,
+            fontSize: '16px'
+          }}
+        >
+          Уже есть аккаунт? Войти
+        </Button>
       </Form>
-    );
-  }
-  
-  export default LoginForm;
-  
+    </div>
+  );
+};
+
+export default SignUpList;

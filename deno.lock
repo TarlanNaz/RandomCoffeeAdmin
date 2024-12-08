@@ -8,6 +8,7 @@
     "npm:@types/react@^18.3.12": "18.3.12",
     "npm:@vitejs/plugin-react@^4.3.3": "4.3.3_vite@5.4.11_@babel+core@7.26.0",
     "npm:antd@^5.22.2": "5.22.2_react@18.3.1_react-dom@18.3.1__react@18.3.1_dayjs@1.11.13",
+    "npm:antd@^5.22.3": "5.22.3_react@18.3.1_react-dom@18.3.1__react@18.3.1_dayjs@1.11.13",
     "npm:eslint-plugin-react-hooks@5": "5.0.0_eslint@9.15.0",
     "npm:eslint-plugin-react-refresh@~0.4.14": "0.4.14_eslint@9.15.0",
     "npm:eslint@^9.13.0": "9.15.0",
@@ -17,6 +18,8 @@
     "npm:react@^18.3.1": "18.3.1",
     "npm:typescript-eslint@^8.11.0": "8.15.0_eslint@9.15.0_@typescript-eslint+parser@8.15.0__eslint@9.15.0__typescript@5.6.3_typescript@5.6.3",
     "npm:typescript@~5.6.2": "5.6.3",
+    "npm:uuid-int@^3.1.0": "3.1.0",
+    "npm:uuid@^11.0.3": "11.0.3",
     "npm:vite@^5.4.10": "5.4.11"
   },
   "npm": {
@@ -68,6 +71,18 @@
     },
     "@ant-design/icons@5.5.1_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
       "integrity": "sha512-0UrM02MA2iDIgvLatWrj6YTCYe0F/cwXvVE0E2SqGrL7PZireQwgEKTKBisWpZyal5eXZLvuM98kju6YtYne8w==",
+      "dependencies": [
+        "@ant-design/colors",
+        "@ant-design/icons-svg",
+        "@babel/runtime",
+        "classnames",
+        "rc-util",
+        "react",
+        "react-dom"
+      ]
+    },
+    "@ant-design/icons@5.5.2_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
+      "integrity": "sha512-xc53rjVBl9v2BqFxUjZGti/RfdDeA8/6KYglmInM2PNqSXc/WfuGDTifJI/ZsokJK0aeKvOIbXc9y2g8ILAhEA==",
       "dependencies": [
         "@ant-design/colors",
         "@ant-design/icons-svg",
@@ -791,7 +806,7 @@
         "@ant-design/colors",
         "@ant-design/cssinjs",
         "@ant-design/cssinjs-utils",
-        "@ant-design/icons",
+        "@ant-design/icons@5.5.1_react@18.3.1_react-dom@18.3.1__react@18.3.1",
         "@ant-design/react-slick",
         "@babel/runtime",
         "@ctrl/tinycolor",
@@ -809,9 +824,9 @@
         "rc-dialog",
         "rc-drawer",
         "rc-dropdown",
-        "rc-field-form",
+        "rc-field-form@2.5.1_react@18.3.1_react-dom@18.3.1__react@18.3.1",
         "rc-image",
-        "rc-input",
+        "rc-input@1.6.3_react@18.3.1_react-dom@18.3.1__react@18.3.1",
         "rc-input-number",
         "rc-mentions",
         "rc-menu",
@@ -827,7 +842,63 @@
         "rc-slider",
         "rc-steps",
         "rc-switch",
-        "rc-table",
+        "rc-table@7.48.1_react@18.3.1_react-dom@18.3.1__react@18.3.1",
+        "rc-tabs",
+        "rc-textarea",
+        "rc-tooltip",
+        "rc-tree",
+        "rc-tree-select",
+        "rc-upload",
+        "rc-util",
+        "react",
+        "react-dom",
+        "scroll-into-view-if-needed",
+        "throttle-debounce"
+      ]
+    },
+    "antd@5.22.3_react@18.3.1_react-dom@18.3.1__react@18.3.1_dayjs@1.11.13": {
+      "integrity": "sha512-YyJ9PhsWkTqJzEo1cZ6wBFk8Ofrfs5O3uGsW8vWcpqBLq/w/yPM/nqZkEDoPFeZ1H+nAhuPF/oWmE/sfj3uYeg==",
+      "dependencies": [
+        "@ant-design/colors",
+        "@ant-design/cssinjs",
+        "@ant-design/cssinjs-utils",
+        "@ant-design/icons@5.5.2_react@18.3.1_react-dom@18.3.1__react@18.3.1",
+        "@ant-design/react-slick",
+        "@babel/runtime",
+        "@ctrl/tinycolor",
+        "@rc-component/color-picker",
+        "@rc-component/mutate-observer",
+        "@rc-component/qrcode",
+        "@rc-component/tour",
+        "@rc-component/trigger",
+        "classnames",
+        "copy-to-clipboard",
+        "dayjs",
+        "rc-cascader",
+        "rc-checkbox",
+        "rc-collapse",
+        "rc-dialog",
+        "rc-drawer",
+        "rc-dropdown",
+        "rc-field-form@2.6.0_react@18.3.1_react-dom@18.3.1__react@18.3.1",
+        "rc-image",
+        "rc-input@1.6.4_react@18.3.1_react-dom@18.3.1__react@18.3.1",
+        "rc-input-number",
+        "rc-mentions",
+        "rc-menu",
+        "rc-motion",
+        "rc-notification",
+        "rc-pagination",
+        "rc-picker",
+        "rc-progress",
+        "rc-rate",
+        "rc-resize-observer",
+        "rc-segmented",
+        "rc-select",
+        "rc-slider",
+        "rc-steps",
+        "rc-switch",
+        "rc-table@7.49.0_react@18.3.1_react-dom@18.3.1__react@18.3.1",
         "rc-tabs",
         "rc-textarea",
         "rc-tooltip",
@@ -1417,6 +1488,16 @@
         "react-dom"
       ]
     },
+    "rc-field-form@2.6.0_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
+      "integrity": "sha512-qU7ei+G/nZ5nkx7TFLRoPtcMR0s0R0yG/2O+iWqA/CX65tJmgODpJvTYYzGMPW/Psj+gy5QHbcZUrNVcPXKjLQ==",
+      "dependencies": [
+        "@babel/runtime",
+        "@rc-component/async-validator",
+        "rc-util",
+        "react",
+        "react-dom"
+      ]
+    },
     "rc-image@7.11.0_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
       "integrity": "sha512-aZkTEZXqeqfPZtnSdNUnKQA0N/3MbgR7nUnZ+/4MfSFWPFHZau4p5r5ShaI0KPEMnNjv4kijSCFq/9wtJpwykw==",
       "dependencies": [
@@ -1436,7 +1517,7 @@
         "@babel/runtime",
         "@rc-component/mini-decimal",
         "classnames",
-        "rc-input",
+        "rc-input@1.6.3_react@18.3.1_react-dom@18.3.1__react@18.3.1",
         "rc-util",
         "react",
         "react-dom"
@@ -1452,13 +1533,23 @@
         "react-dom"
       ]
     },
+    "rc-input@1.6.4_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
+      "integrity": "sha512-lBZhfRD4NSAUW0zOKLUeI6GJuXkxeZYi0hr8VcJgJpyTNOvHw1ysrKWAHcEOAAHj7guxgmWYSi6xWrEdfrSAsA==",
+      "dependencies": [
+        "@babel/runtime",
+        "classnames",
+        "rc-util",
+        "react",
+        "react-dom"
+      ]
+    },
     "rc-mentions@2.17.0_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
       "integrity": "sha512-sfHy+qLvc+p8jx8GUsujZWXDOIlIimp6YQz7N5ONQ6bHsa2kyG+BLa5k2wuxgebBbH97is33wxiyq5UkiXRpHA==",
       "dependencies": [
         "@babel/runtime",
         "@rc-component/trigger",
         "classnames",
-        "rc-input",
+        "rc-input@1.6.3_react@18.3.1_react-dom@18.3.1__react@18.3.1",
         "rc-menu",
         "rc-textarea",
         "rc-util",
@@ -1634,6 +1725,19 @@
         "react-dom"
       ]
     },
+    "rc-table@7.49.0_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
+      "integrity": "sha512-/FoPLX94muAQOxVpi1jhnpKjOIqUbT81eELQPAzSXOke4ky4oCWYUXOcVpL31ZCO90xScwVSXRd7coqtgtB1Ng==",
+      "dependencies": [
+        "@babel/runtime",
+        "@rc-component/context",
+        "classnames",
+        "rc-resize-observer",
+        "rc-util",
+        "rc-virtual-list",
+        "react",
+        "react-dom"
+      ]
+    },
     "rc-tabs@15.4.0_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
       "integrity": "sha512-llKuyiAVqmXm2z7OrmhX5cNb2ueZaL8ZyA2P4R+6/72NYYcbEgOXibwHiQCFY2RiN3swXl53SIABi2CumUS02g==",
       "dependencies": [
@@ -1653,7 +1757,7 @@
       "dependencies": [
         "@babel/runtime",
         "classnames",
-        "rc-input",
+        "rc-input@1.6.3_react@18.3.1_react-dom@18.3.1__react@18.3.1",
         "rc-resize-observer",
         "rc-util",
         "react",
@@ -1913,6 +2017,12 @@
         "punycode"
       ]
     },
+    "uuid-int@3.1.0": {
+      "integrity": "sha512-L+TdqlKbIwO6XxkqpoRkE+MohbL1y6TpEbdDKuxs0MQ2rpO/Hv7Ktp76VneGAbGJRfmwQgvUlRXD6jO0mCzD9Q=="
+    },
+    "uuid@11.0.3": {
+      "integrity": "sha512-d0z310fCWv5dJwnX1Y/MncBAqGMKEzlBb1AOf7z9K8ALnd0utBX/msg/fA0+sbyN1ihbMsLhrBlnl1ak7Wa0rg=="
+    },
     "vite@5.4.11": {
       "integrity": "sha512-c7jFQRklXua0mTzneGW9QVyxFjUgwcihC4bXEtujIo2ouWCe1Ajt/amn2PCxYnhYfd5k09JX3SB7OYWFKYqj8Q==",
       "dependencies": [
@@ -1960,11 +2070,13 @@
       "dependencies": [
         "npm:@ant-design/icons@^5.5.1",
         "npm:@eslint/js@^9.13.0",
+        "npm:@pbe/react-yandex-maps@^1.2.5",
         "npm:@supabase/supabase-js@^2.46.1",
         "npm:@types/react-dom@^18.3.1",
         "npm:@types/react@^18.3.12",
         "npm:@vitejs/plugin-react@^4.3.3",
-        "npm:antd@^5.22.2",
+        "npm:@yandex/ymaps3-types@^1.0.15457591",
+        "npm:antd@^5.22.3",
         "npm:eslint-plugin-react-hooks@5",
         "npm:eslint-plugin-react-refresh@~0.4.14",
         "npm:eslint@^9.13.0",
@@ -1974,6 +2086,8 @@
         "npm:react@^18.3.1",
         "npm:typescript-eslint@^8.11.0",
         "npm:typescript@~5.6.2",
+        "npm:uuid-int@^3.1.0",
+        "npm:uuid@^11.0.3",
         "npm:vite@^5.4.10"
       ]
     }

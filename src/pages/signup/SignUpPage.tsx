@@ -1,9 +1,7 @@
-import SignUpList from './components/SignUpList.tsx';
+import SignUpList from './components/SignUpList';
 
-const SignUpPage = () => {
+const SignUpPage: React.FC = () => {
+  return <SignUpList />;
+};
 
-    return(
-        <SignUpList/>
-    )
-}
-  export default SignUpPage;
+export default SignUpPage;

@@ -17,6 +17,7 @@ function TopicsList() {
   }, []);
 
   function addTopic() {
+    
     return supabase
       .from("topics")
       .insert({ title: "Что-нет" })
