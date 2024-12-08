@@ -6,7 +6,6 @@ import { supabase } from '../../shared/supabaseClient.tsx';
 //import TopicsList from './components/TopicsList';
 import TestList from './components/TestList.tsx';
 //import PlacesList from './components/UsersList.tsx';
-import React from 'react';
 
 
 
