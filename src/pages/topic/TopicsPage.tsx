@@ -3,7 +3,6 @@ const { Header, Sider, Content } = Layout;
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { supabase } from '../../shared/supabaseClient.tsx';
-import React from 'react';
 import TopicsList from './components/TopicsList.tsx';
 
 const TopicsPage = () => {
