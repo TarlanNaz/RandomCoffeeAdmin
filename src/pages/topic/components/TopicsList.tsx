@@ -2,52 +2,65 @@ import { Button, Table } from 'antd';
 import { supabase } from '../../../shared/supabaseClient.tsx';
 import { useEffect, useState } from 'react';
 
+interface Topic {
+  id: number;
+  title: string;
+  created_at: string;
+  updated_at: string;
+}
+
 function TopicsList() {
-  const [data, setData] = useState(new Array<Object>());
+  const [data, setData] = useState<Topic[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await supabase.from('topics').select();
-      console.log(data);
-      if (data) {
-        setData(data);
+      try {
+        const { data, error } = await supabase.from('topics').select();
+        if (error) throw error;
+        if (data) {
+          setData(data);
+        }
+      } catch (error) {
+        console.error('Error fetching topics:', error);
       }
     };
     fetchData();
   }, []);
 
-  function addTopic() {
-    
-    return supabase
-      .from("topics")
-      .insert({ title: "Что-нет" })
-      .then(({ error }) => {
-        console.log(error)
-        if (!error) {
-          return supabase.from('topics').select()
-        }
-      })
-      .then(({ data }) => {
-        console.log(data);
-        if (data) {
-          setData(data);
-        }
-      });
-}
+  async function addTopic() {
+    try {
+      const { error } = await supabase
+        .from("topics")
+        .insert({ title: "Что-нет" });
+      
+      if (error) throw error;
 
+      const { data, error: fetchError } = await supabase.from('topics').select();
+      if (fetchError) throw fetchError;
+      
+      if (data) {
+        setData(data);
+      }
+    } catch (error) {
+      console.error('Error adding topic:', error);
+    }
+  }
 
   const columns = [
     {
       title: 'Название',
       dataIndex: 'title',
+      key: 'title'
     },
     {
       title: 'Время создания',
       dataIndex: 'created_at',
+      key: 'created_at'
     },
     {
       title: 'Время последнего изменения',
       dataIndex: 'updated_at',
+      key: 'updated_at'
     },
   ];
 
