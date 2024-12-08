@@ -34,7 +34,7 @@ const SignUpList: React.FC = () => {
         message.success('Регистрация успешна! Проверьте вашу почту для подтверждения.');
         navigate('/login');
       }
-    } catch (error) {
+    } catch (error: any) {
       message.error(error.message || 'Ошибка при регистрации');
     } finally {
       setLoading(false);
@@ -42,10 +42,10 @@ const SignUpList: React.FC = () => {
   };
 
   return (
-    <div style={{ 
-      display: 'flex', 
-      justifyContent: 'center', 
-      alignItems: 'center', 
+    <div style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
       minHeight: '100vh',
       width: '100vw',
       background: 'linear-gradient(135deg, #371005 0%, #371005 100%)'
@@ -67,11 +67,11 @@ const SignUpList: React.FC = () => {
         size="large"
       >
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <h1 style={{ 
-            fontSize: '24px', 
+          <h1 style={{
+            fontSize: '24px',
             margin: 0,
             color: '#1a1a1a',
-            fontWeight: 600 
+            fontWeight: 600
           }}>
             Регистрация
           </h1>
@@ -84,7 +84,7 @@ const SignUpList: React.FC = () => {
             { type: 'email', message: 'Пожалуйста, введите корректный email' }
           ]}
         >
-          <Input 
+          <Input
             prefix={<UserOutlined style={{ color: '#bfbfbf' }} />}
             placeholder="Email"
             size="large"
@@ -98,7 +98,7 @@ const SignUpList: React.FC = () => {
             { min: 6, message: 'Пароль должен быть не менее 6 символов' }
           ]}
         >
-          <Input.Password 
+          <Input.Password
             prefix={<LockOutlined style={{ color: '#bfbfbf' }} />}
             placeholder="Пароль"
             size="large"
@@ -119,19 +119,18 @@ const SignUpList: React.FC = () => {
             }),
           ]}
         >
-          <Input.Password 
+          <Input.Password
             prefix={<LockOutlined style={{ color: '#bfbfbf' }} />}
             placeholder="Подтвердите пароль"
             size="large"
           />
         </Form.Item>
-
         <Form.Item style={{ marginBottom: '12px' }}>
-          <Button 
-            type="primary" 
-            htmlType="submit" 
+          <Button
+            type="primary"
+            htmlType="submit"
             loading={loading}
-            block 
+            block
             size="large"
             style={{
               height: '46px',
@@ -142,8 +141,8 @@ const SignUpList: React.FC = () => {
             Зарегистрироваться
           </Button>
         </Form.Item>
-        <Button 
-          block 
+        <Button
+          block
           size="large"
           onClick={() => navigate('/login')}
           style={{
