@@ -1,7 +1,7 @@
 import { Button, Table, Popover, Space } from 'antd';
 import { supabase } from '../../../shared/supabaseClient.tsx';
 import { useEffect, useState } from 'react';
-import React from "react";
+
 
 
 function UsersList() {
