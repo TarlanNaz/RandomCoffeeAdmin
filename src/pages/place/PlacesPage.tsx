@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { supabase } from '../../shared/supabaseClient.tsx';
 import PlacesList from './components/PlacesList.tsx';
-import React from 'react';
+import React, { useState } from 'react';
 
 function PlacesPage() {
   const navigate = useNavigate();
