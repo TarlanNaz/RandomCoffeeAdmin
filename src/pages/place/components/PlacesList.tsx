@@ -1,7 +1,6 @@
 import { Button, Table } from 'antd';
 import { supabase } from '../../../shared/supabaseClient';
 import { useEffect, useState } from 'react';
-import React from 'react';
 
 function PlacesList() {
   const [place, setPlace] = useState(new Array<Object>());
